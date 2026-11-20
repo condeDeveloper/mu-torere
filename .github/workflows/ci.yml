@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  testes:
+    name: testes (${{ matrix.so }}, node ${{ matrix.node }})
+    runs-on: ${{ matrix.so }}
+    strategy:
+      fail-fast: false
+      matrix:
+        so: [ubuntu-latest, windows-latest, macos-latest]
+        node: ['20', '22', '24']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      # O `shell: bash` nao e enfeite: no PowerShell do runner o glob
+      # `testes/*.test.js` chega ao node como texto literal.
+      - name: as regras, a busca e o juiz
+        shell: bash
+        run: node --test testes/nucleo.test.js
+      - name: os numeros do README
+        shell: bash
+        run: node --test testes/medidas.test.js
+
+  medidas:
+    name: tabelas do README
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: o inicio e todas as posicoes de cada jogo
+        run: node ferramentas/medidor.js resumo
+      - name: a menos de simetria
+        run: node ferramentas/medidor.js classes
+      - name: o efeito da regra do centro
+        run: node ferramentas/medidor.js regra
+      - name: o juiz e o controle
+        run: node ferramentas/medidor.js juiz
