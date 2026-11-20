@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mu Torere: a regra que salva o jogo</title>
+<meta name="description" content="Mu Torere e Pong Hau K'i resolvidos em todas as posicoes: sem a regra do centro o Mu Torere acaba no primeiro lance; com ela, empata, e a regra proibe so 40 lances.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+
+<header>
+  <h1>Mu Torere</h1>
+  <p>Jogo maori de oito pontas e um centro. Quatro peças de cada lado, um ponto vazio só, e cada lance leva uma peça para ele. Quem fica sem lance perde. De uma ponta para o centro, só pode ir a peça que tem uma peça do outro lado ao lado dela. Junto, o Pong Hau K'i, o primo chinês de cinco pontos.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>Jogue</h2>
+  <div class="painel">
+    <div class="linha">
+      <select id="jogo" aria-label="jogo">
+        <option value="regra" selected>Mu Torere, com a regra do centro</option>
+        <option value="sem">Mu Torere, sem a regra</option>
+        <option value="pong">Pong Hau K'i</option>
+      </select>
+      <button id="reiniciar" type="button">Nova partida</button>
+    </div>
+    <div class="linha">
+      <label><input id="dicas" type="checkbox" checked> mostrar o resultado de cada lance</label>
+    </div>
+    <div id="tabuleiro" class="tabuleiro"></div>
+    <p id="estado"></p>
+    <p class="fraco">Nas dicas, <strong>V1</strong> é vitória em 1 lance, <strong>D4</strong> é derrota em 4 e <strong>E</strong> é empate.</p>
+  </div>
+</section>
+
+<section>
+  <h2>O que a varredura respondeu</h2>
+
+  <h3>Sem a regra, o jogo acaba no primeiro lance</h3>
+  <p>Do início, quem começa leva ao centro uma das duas peças do meio do seu grupo, e o outro fica sem lance: nenhuma peça dele é vizinha do ponto que ficou vazio. Levar uma das peças das pontas do grupo, ao contrário, perde em 4. A regra do centro existe para impedir exatamente isso.</p>
+
+  <h3>Com a regra, empate, e a regra quase não aparece</h3>
+  <p>Com a regra o jogo empata, pelas duas aberturas permitidas. Somando as 630 posições do jogo, a regra proíbe só <strong>40 lances</strong>, e muda o valor de <strong>72 posições</strong>. Todas as 72 mudam no mesmo sentido: eram decididas sem a regra e viram empate com ela. Nenhuma troca de dono.</p>
+
+  <h3>No Pong Hau K'i ninguém é levado à derrota de longe</h3>
+  <p>Das 30 posições, 24 são empate, e nenhuma vitória passa de <strong>1 lance</strong>. Só perde quem deixa as próprias peças presas no lance seguinte.</p>
+</section>
+
+<section>
+  <h2>Como rodar</h2>
+  <pre><code>npm test                              # a suite inteira
+npm run medir                         # todas as tabelas
+node ferramentas/medidor.js regra     # o efeito da regra do centro</code></pre>
+  <p>O código está em <a href="https://github.com/condeDeveloper/mu-torere">github.com/condeDeveloper/mu-torere</a>.</p>
+</section>
+
+</main>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
