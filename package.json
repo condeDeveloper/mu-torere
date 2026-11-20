@@ -1,0 +1,13 @@
+{
+  "name": "mu-torere",
+  "version": "1.0.0",
+  "description": "Mu Torere e Pong Hau K'i resolvidos em todas as posicoes, e a regra do centro medida lance por lance",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test testes/*.test.js",
+    "medir": "node ferramentas/medidor.js"
+  }
+}
